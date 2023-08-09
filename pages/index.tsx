@@ -4,8 +4,8 @@ import BottomDrawer from "../components/Drawer/BottomDrawer";
 
 const Home: NextPage = () => {
   return (
-    <div className="font-beVietNam">
-      <div className=" bg-[url('https://m.aiscore.com/_nuxt/img/downback.bda9a2a.png')] bg-cover">
+    <div className="font-beVietNam ">
+      <div className=" bg-[url('/images/banner0.png')] bg-cover">
         <div className=" min-h-full hidden lg:flex containerPage gap-14 pt-10">
           <div className="">
             <Image
@@ -79,9 +79,9 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-        <BottomDrawer />
+        
       </div>
-      <div className="bg-white">
+      <div className="bg-white hidden lg:block">
        <div className="containerPage py-10">
        <div className="text-black">
           <h6 className="text-3xl font-bold">Match Live</h6>
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
         </div>
        </div>
       </div>
-      <div className="bg-[#ECEFF2]">
+      <div className="bg-[#ECEFF2] hidden lg:block">
         <div className="containerPage py-10">
           <div className="text-black">
             <h6 className="text-3xl font-bold">Live Scores</h6>
@@ -119,6 +119,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
+      <BottomDrawer />
     </div>
   );
 };

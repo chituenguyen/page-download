@@ -21,10 +21,6 @@ const BottomDrawer = () => {
     }
   }, []);
 
-  if (typeof window === "undefined") {
-    // Don't render on the server
-    return null;
-  }
 
   return (
     <div
