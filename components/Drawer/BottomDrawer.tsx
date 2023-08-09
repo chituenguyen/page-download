@@ -1,23 +1,27 @@
 // components/BottomDrawer.js
-import React, { useState, useEffect } from 'react';
-import { useUserAgent } from 'next-useragent';
-import MobileDownload from '../MobileDownload/MobileDownload';
+import React, { useState, useEffect } from "react";
+import { useUserAgent } from "next-useragent";
+import MobileDownload from "../MobileDownload/MobileDownload";
 
 const BottomDrawer = () => {
   const [showDrawer, setShowDrawer] = useState(false);
   const userAgent = useUserAgent("");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowDrawer(true);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timer);
-    };
+    const check = localStorage.getItem("showDrawer");
+    if (check) {
+      return;
+    } else {
+      const timer = setTimeout(() => {
+        setShowDrawer(true);
+      }, 5000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
   }, []);
 
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     // Don't render on the server
     return null;
   }
@@ -25,13 +29,21 @@ const BottomDrawer = () => {
   return (
     <div
       className={`fixed bottom-0 left-0 right-0 transition-transform duration-300 transform bg-[#333333] lg:hidden ${
-        showDrawer ? 'translate-y-0' : 'translate-y-full'
+        showDrawer ? "translate-y-0" : "translate-y-full"
       }`}
     >
       {userAgent.isAndroid ? (
-        <MobileDownload type={"android"} />
+        <MobileDownload
+          type={"android"}
+          showDrawer={showDrawer}
+          setShowDrawer={setShowDrawer}
+        />
       ) : userAgent.isIos ? (
-        <MobileDownload type={"ios"} />
+        <MobileDownload
+          type={"ios"}
+          showDrawer={showDrawer}
+          setShowDrawer={setShowDrawer}
+        />
       ) : (
         <></>
       )}

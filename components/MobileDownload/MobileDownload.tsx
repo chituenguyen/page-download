@@ -2,6 +2,8 @@ import Image from "next/image";
 
 interface MobileDownloadProps {
   type: "ios" | "android"; // Define the type explicitly
+  showDrawer: boolean;
+  setShowDrawer: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface Urls {
@@ -15,7 +17,11 @@ const url: Urls = {
     "https://play.google.com/store/apps/details?id=com.livescore&utm_source=https%3A%2F%2Fwww.livescore.com%2Fen%2F&utm_medium=website&utm_campaign=ls_smartbanner_home_open_android",
 };
 
-function MobileDownload({ type }: MobileDownloadProps) {
+function MobileDownload({
+  type,
+  showDrawer,
+  setShowDrawer,
+}: MobileDownloadProps) {
   return (
     <div className="px-4 py-4">
       <div className="flex flex-col items-center justify-center text-white gap-4 ">
@@ -33,7 +39,13 @@ function MobileDownload({ type }: MobileDownloadProps) {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 mt-4 text-sm">
-        <button className="text-white border border-solid border-white py-2 rounded-md">
+        <button
+          className="text-white border border-solid border-white py-2 rounded-md"
+          onClick={() => {
+            setShowDrawer(false);
+            localStorage.setItem("showDrawer", "true");
+          }}
+        >
           Not now
         </button>
         <button className="text-black bg-[#2187E5] rounded-md">

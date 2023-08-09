@@ -23,6 +23,6 @@
       @apply py-2 px-3  border border-solid border-[#2187E5]  text-xs  text-black rounded-md bg-gray-200;
     }
     .containerPage {
-      @apply max-w-[1440px] mx-auto;
+      @apply max-w-[1000px] mx-auto;
     }
 }
