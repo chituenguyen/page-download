@@ -1,26 +1,35 @@
 // components/BottomDrawer.js
 import React, { useState, useEffect } from "react";
-import { useUserAgent } from "next-useragent";
-import MobileDownload from "../MobileDownload/MobileDownload";
+import dynamic from "next/dynamic";
+import { getUserAgent } from '../../utils/userAgent';
+
+const MobileDownload = dynamic(
+  () => import("../MobileDownload/MobileDownload"),
+  { ssr: false }
+);
 
 const BottomDrawer = () => {
   const [showDrawer, setShowDrawer] = useState(false);
-  const userAgent = useUserAgent("");
+  const [userAgent, setUserAgent] = useState<any>(null);
 
   useEffect(() => {
+    setUserAgent(getUserAgent());
+
     const check = localStorage.getItem("showDrawer");
-    if (check) {
-      return;
-    } else {
+    if (!check) {
       const timer = setTimeout(() => {
         setShowDrawer(true);
-      }, 5000);
+        localStorage.setItem("showDrawer", "true");
+      }, 3000);
       return () => {
         clearTimeout(timer);
       };
     }
   }, []);
+  console.log(userAgent)
 
+  const isAndroid = userAgent && userAgent.name === "Android";
+  const isIos = userAgent  && userAgent.name === "iOS";
 
   return (
     <div
@@ -28,13 +37,13 @@ const BottomDrawer = () => {
         showDrawer ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      {userAgent.isAndroid ? (
+      {isAndroid ? (
         <MobileDownload
           type={"android"}
           showDrawer={showDrawer}
           setShowDrawer={setShowDrawer}
         />
-      ) : userAgent.isIos ? (
+      ) : isIos ? (
         <MobileDownload
           type={"ios"}
           showDrawer={showDrawer}
